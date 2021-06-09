@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Drag and drop</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background-color: #b0e9ff;
+        }
+
+        .ball {
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background-color: #2c47ff;
+            color: white;
+            text-align: center;
+            line-height: 60px;
+            border-radius: 50%;
+        }
+
+        .rect {
+            padding: 10px;
+            position: absolute;
+            width: 200px;
+            min-height: 240px;
+            background-color: #ffcc72;
+            left: 420px;
+            top: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="rect" style="left: 100px">
+            <div class="ball" id="ball1" draggable="true">1</div>
+            <div class="ball" id="ball2" draggable="true" style="background-color: #ff3228;">2</div>
+            <div class="ball" id="ball3" draggable="true" style="background-color: #26c213;">3</div>
+        </div>
+        <div class="rect"></div>
+    </div>
+
+
+
+    <script src="javascripts/jquery-3.4.1.js"></script>
+    <script>
+        let dragTarget = null; //存放拖拉的對象
+        const ball = $('.ball');
+        const rects = $('.rect');
+
+        ball.on('dragstart', function (event) {
+            console.log(event.target.id);
+            dragTarget = $(event.target);
+        });
+
+        ball.on('dragend', function (event) {
+            console.log(event.target.id);
+            dragstart = null
+            
+        });
+
+        // 可以偵聽到 drop 事件
+        rects.on('dragover', event => event.preventDefault());
+        
+        rects.on('dragenter', function(event){
+            $(this).css('background-color','yellow')
+        });
+
+        rects.on('dragleave', function(event){
+            $(this).css('background-color','#ffcc72')
+        });
+
+        rects.on('drop', function(event){
+            if(dragTarget){
+                $(event.target).append( dragTarget );
+            }
+            $(this).css('background-color','#ffcc72')
+        });
+
+
+        
+    </script>
+
+</body>
+
+</html>

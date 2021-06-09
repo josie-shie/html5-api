@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas{
+            border : 1px dashed green
+        }
+    </style>
+
+</head>
+<body>
+    <canvas id="myCanvas" width="600" height="400"></canvas>
+    <br>
+    <!-- style="display: none" 隱藏選擇檔案的input -->
+    <input type="file" id="myFile" style="display: none" accept="image/*">
+    <button onclick="myFile.click()">繪製圖檔</button>
+
+
+    <script>
+        const myCanvas = document.querySelector('#myCanvas');
+        const ctx = myCanvas.getContext('2d');
+        const img = new Image();
+        const reader = new FileReader();
+        
+        myFile.addEventListener('change', ()=>{
+            reader.readAsDataURL(myFile.files[0]);
+        });
+
+        reader.addEventListener('load', ()=>{
+            img.src = reader.result;
+        });
+
+        img.addEventListener('load', event=>{
+            ctx.drawImage(img, 0, 0);
+        });
+        
+    </script>
+</body>
+</html>

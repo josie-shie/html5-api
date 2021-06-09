@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- novalidate自動驗證  data-novalidate取消自動驗證 -->
+    <!-- autocomplete 自動完成 -->
+<form action="" onsubmit="return false;" novalidate autocomplete="on">
+    <label for="myName">姓名：</label>
+     <!-- autofocus聚焦欄位（通常設定在第一個，全都設定時最後一個才生效） -->
+    <input type="text" name="myName" id="myName" required autofocus><br>
+    <!-- atype="email"自動驗證 使用者數入是否為email格式 -->
+    <label for="myEmail">電郵：</label>
+    <input type="email" name="myEmail" id="myEmail"><br>
+
+
+    <label for="myGroup">組別：</label>
+    <input type="text" name="myGroup" id="myGroup" list="mylist">
+    <!-- list需搭配datalist id與list欄位直須相同 功能類似模糊搜尋出option的value  -->
+    <datalist id="mylist">
+        <option value="甲組"></option>
+        <option value="乙組"></option>
+        <option value="丙組"></option>
+    </datalist><br>
+
+    <!-- pattern="正規表達式" 驗證欄位是否正確輸入 -->
+    <label for="myTel">手機號碼：</label>
+    <input type="tel" name="myTel" id="myTel"
+           pattern="^09\d{2}-?\d{3}-?\d{3}$"><br>
+    <input type="submit">
+</form>
+</body>
+</html>

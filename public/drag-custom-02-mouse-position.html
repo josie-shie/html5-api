@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .rect {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background-color: #c9dfee;
+            border: 1px solid black;
+        }
+        .ball {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: #2c47ff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            color: white;
+            left: 50px;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="rect">
+    <div class="ball">1</div>
+    <div class="ball" style="background-color: #FF0000; top:100px;">2</div>
+    <div class="ball" style="background-color: #458b45; top:200px;">3</div>
+</div>
+<textarea id="info"></textarea>
+<script src="javascripts/jquery-3.4.1.js"></script>
+<script>
+    const rect = $('.rect');
+    const balls = $('.ball');
+    const handler = event => {
+        //page整個body為基準
+        //client以window為基準
+        //offset以eventTarget為基準 滑鼠指定圈就是圈 方形就是方形
+        info.value = `
+        page: ${event.pageX}, ${event.pageY} 
+        client: ${event.clientX}, ${event.clientY}
+        offset: ${event.offsetX}, ${event.offsetY}
+        `;
+    };
+
+    rect.on('mousemove', handler);
+</script>
+</body>
+</html>
