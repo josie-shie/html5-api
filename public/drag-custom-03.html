@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .rect {
+            position: absolute;
+            width: 800px;
+            height: 600px;
+            background-color: #c9dfee;
+            border: 1px solid black;
+        }
+        .ball {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: #2c47ff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            color: white;
+            left: 50px;
+            border: 1px solid black;
+            cursor: pointer;
+            user-select: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="rect">
+    <div class="ball">1</div>
+    <div class="ball" style="background-color: #FF0000; top:100px;">2</div>
+    <div class="ball" style="background-color: #458b45; top:200px;">3</div>
+</div>
+<script src="javascripts/jquery-3.4.1.js"></script>
+<script>
+    const rect = $('.rect');
+    const balls = $('.ball');
+    let dragObj = {
+        target: null,
+        x: 0,
+        y: 0,
+    };
+    const mDown = function(event){
+        rect.on('mousemove', mMove);
+        //讓點擊的圓圈可以移到最上層
+        rect.append($(this));
+        dragObj = {
+            //中心點
+            target: $(this),
+            x: event.offsetX,
+            y: event.offsetY,
+        }
+    };
+    const mUp = function(event){
+        rect.off('mousemove', mMove);
+        dragObj.target = null;
+    };
+    const mMove = function(event){
+        if(dragObj.target){
+            dragObj.target.css({
+                left: event.pageX - dragObj.x,
+                top: event.pageY - dragObj.y,
+            });
+        }
+    };
+    balls.on('mousedown', mDown);
+    $(window).on('mouseup', mUp);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        .rect {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            background-color: #82bce3;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+<div class="rect" style="background-color: #df9191;left: 400px; top:100px"></div>
+<script src="javascripts/jquery-3.4.1.js"></script>
+<script>
+    const balls = $('.ball');
+    const rects = $('.rect');
+
+
+    // 可以偵聽到 drop 事件
+    rects.on('dragover', event => event.preventDefault() );
+
+    rects.on('dragenter', function(event){
+        $(this).css('background-color', 'yellow');
+    });
+    rects.on('dragleave', function(event){
+        $(this).css('background-color', '#82bce3');
+    });
+
+    rects.on('drop', function(event){
+        event.preventDefault(); // 取消直接用瀏覽器開啟圖檔
+        console.log(event.type, event.originalEvent.dataTransfer.files);
+        $(this).css('background-color', '#82bce3');
+    });
+</script>
+</body>
+</html>
