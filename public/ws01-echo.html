@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button id="connectBtn">連線</button>
+    <button id="disconnectBtn" style="display:none">斷線</button>
+    <br>
+    <input type="text" id="myin" placeholder="輸入訊息">
+    <button id="sendBtn" style="display:none">send</button>
+    <br>
+    <!-- readyonly不能讓用戶輸入 -->
+    <textarea name="info" id="info" cols="30" rows="10" readyonly ></textarea>
+
+
+    <script>
+
+        let socket;
+
+        const myOpen = event=>{
+            info.value += '已連線～\n'; 
+            connectBtn.style.display = 'none';
+            disconnectBtn.style.display = 'inline-block';
+            sendBtn.style.display = 'inline-block';
+        }
+
+        const myMessage = event=>{
+            console.log(event.data);
+            info.value += `接收： ${event.data} \n`; 
+        }
+
+        const myClose = event=>{
+            info.value += '已斷線～\n'; 
+            connectBtn.style.display = 'inline-block';
+            disconnectBtn.style.display = 'none';
+            sendBtn.style.display = 'none';
+        }
+
+        document.addEventListener('click',event=>{
+            console.log(event.target.id);
+
+            switch(event.target.id){
+                case 'connectBtn':
+                    if(socket && socket.readyState === WebSocket.OPEN){
+                        return;
+                    }
+                    socket = new WebSocket('wss://echo.websocket.org');
+                    socket.addEventListener('open', myOpen);
+                    socket.addEventListener('message', myMessage);
+                    socket.addEventListener('close', myClose);
+                    break;
+                case 'disconnectBtn':
+                    if(socket && socket.readyState === WebSocket.OPEN){
+                        socket.close();
+                    }
+                    break;
+                case 'sendBtn':
+                    if(socket && socket.readyState===WebSocket.OPEN) {
+                        socket.send(myin.value);}
+                    break;
+            }
+
+
+        })
+                    
+
+    </script>
+</body>
+</html>
