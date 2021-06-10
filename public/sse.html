@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        //連線以後server端可以持續傳送資料給用戶端 但是是單向的
+
+        const es = new EventSource('/try-sse');
+
+        es.addEventListener('open', function(event){
+            info.style.backgroundColor = 'yellow';
+        });
+        es.addEventListener('message', function(event){
+            info.innerHTML = `<h2>id: ${event.lastEventId}, data: ${event.data}</h2>`;
+        });
+        es.addEventListener('error', function(event){
+            console.log('error:', event)
+        });
+
+    </script>
+
+</body>
+</html>
