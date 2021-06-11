@@ -25,6 +25,7 @@ const getPrimeNumbers = (num=2e7)=>{
 };
 
 // this, self: DedicatedWorkerGlobalScope
+//主程式跟在運算程式不同scope所以串連是透過postMessage跟onMessage
 self.onmessage = event=>{
 	if(event.data==='start'){
 		postMessage(getPrimeNumbers());
